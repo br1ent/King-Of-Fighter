@@ -21,9 +21,11 @@ export class Player extends GameObject {
         this.gravity = 50; // 重力加速度
 
         this.speedx = 400; // 水平速度
-        this.speedy = -1000; // 垂直速度
+        this.speedy = -2400; // 垂直速度
 
-        this.status = 3; // 角色的状态, 0: 站立, 1: 移动 2: 跳跃, 3: 攻击, 4: 受击, 5: 死亡
+        this.status = 3; // 角色的状态, 0: 站立, 1: 移动 2: 后退, 3: 跳跃, 4: 攻击, 5: 受击, 6: 死亡
+        this.animations = new Map(); // 存储角色的动画帧数据
+        this.frame_current_cnt = 0; // 当前动画帧的计数器
     }
 
     start() {
@@ -54,7 +56,7 @@ export class Player extends GameObject {
                     this.vx = 0;
                 }
                 this.vy = this.speedy;
-                this.status = 2;
+                this.status = 3;
             } else if (d) {
                 this.vx = this.speedx;
                 this.status = 1;
@@ -68,8 +70,10 @@ export class Player extends GameObject {
         }
     }
 
-    update_move() {
-        this.vy += this.gravity; // 受重力影响，垂直速度增加
+    update_move() { 
+        if (this.status === 3) { // 如果角色处于跳跃状态
+            this.vy += this.gravity; // 受重力影响，垂直速度增加
+        } 
         this.x  += this.vx * this.timedelta / 1000; // 根据水平速度和时间间隔更新水平位置
         this.y  += this.vy * this.timedelta / 1000; // 根据垂直速度和时间间隔更新垂直位置
 
@@ -93,7 +97,21 @@ export class Player extends GameObject {
     }
 
     render() {
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        // this.ctx.fillStyle = this.color;
+        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        let status = this.status;
+
+        if (this.status === 1 && this.direction * this.vx < 0) {
+            status = 2; // 如果角色正在移动但方向与当前速度相反，则切换到后退状态
+        }
+
+        let obj = this.animations.get(status);
+        if (obj && obj.loaded) {
+            let k = parseInt(this.frame_current_cnt / obj.frame_rate % obj.frame_cnt);
+            let image = obj.gif.frames[k].image;
+            this.ctx.drawImage(image, this.x, this.y + obj.offset_y, image.width * obj.scale, image.height * obj.scale);
+        }
+        this.frame_current_cnt ++;
     }
 }
