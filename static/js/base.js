@@ -7,7 +7,7 @@ class KOF {
         
         console.log(this.$kof);
         this.gamemap = new GameMap(this);
-        this.player = [
+        this.players = [
             new Kyo(this, {
                 id: 0,
                 x: 200,
