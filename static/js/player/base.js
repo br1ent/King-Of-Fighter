@@ -21,7 +21,7 @@ export class Player extends GameObject {
         this.gravity = 50; // 重力加速度
 
         this.speedx = 400; // 水平速度
-        this.speedy = -2400; // 垂直速度
+        this.speedy = -2000; // 垂直速度
 
         this.status = 3; // 角色的状态, 0: 站立, 1: 移动 2: 后退, 3: 跳跃, 4: 攻击, 5: 受击, 6: 死亡
         this.animations = new Map(); // 存储角色的动画帧数据
@@ -61,6 +61,7 @@ export class Player extends GameObject {
                 }
                 this.vy = this.speedy;
                 this.status = 3;
+                this.frame_current_cnt = 0;
             } else if (d) {
                 this.vx = this.speedx;
                 this.status = 1;
