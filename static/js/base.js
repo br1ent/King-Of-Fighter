@@ -1,11 +1,10 @@
-﻿import { GameMap } from "/static/js/gamemap/base.js";
-import { Kyo } from "/static/js/player/kyo.js";
+﻿import { GameMap } from "/static/js/game_map.js";
+import { Kyo } from "/static/js/kyo.js";
 
 class KOF {
     constructor(id) {
         this.$kof = $("#" + id);
         
-        console.log(this.$kof);
         this.gamemap = new GameMap(this);
         this.players = [
             new Kyo(this, {

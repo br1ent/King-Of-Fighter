@@ -9,7 +9,6 @@
         let outer = this;
         this.$canvas.keydown(e => {
             outer.pressed_keys.add(e.key);
-
         })
 
         this.$canvas.keyup(e => {

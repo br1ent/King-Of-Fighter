@@ -1,4 +1,4 @@
-﻿import { GameObject } from "../game_object/base.js";
+﻿import { GameObject } from "/static/js/game_object.js";
 
 export class Player extends GameObject {
     constructor(root, info) {

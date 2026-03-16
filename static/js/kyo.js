@@ -1,4 +1,4 @@
-﻿import { Player } from "/static/js/player/base.js";
+﻿import { Player } from "/static/js/player.js";
 import { GIF } from "/static/js/utils/gif.js";
 
 export class Kyo extends Player {

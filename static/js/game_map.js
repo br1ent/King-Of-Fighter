@@ -1,5 +1,5 @@
-﻿import {GameObject} from "../game_object/base.js";
-import { Controller } from "../controller/base.js";
+﻿import {GameObject} from "/static/js/game_object.js";
+import { Controller } from "/static/js/controller.js";
 
 export class GameMap extends GameObject {
     constructor(root) {
