@@ -47,7 +47,11 @@ export class Player extends GameObject {
         }
 
         if (this.status === 0 || this.status === 1) { // 只有在站立和移动状态下才允许控制
-            if (w) {
+            if (space) {
+                this.status = 4;
+                this.vx = 0;
+                this.frame_current_cnt = 0;
+            } else if (w) {
                 if (d) {
                     this.vx = this.speedx;
                 } else if (a) {
@@ -67,6 +71,7 @@ export class Player extends GameObject {
                 this.vx = 0;
                 this.status = 0;
             }
+            
         }
     }
 
@@ -97,9 +102,6 @@ export class Player extends GameObject {
     }
 
     render() {
-        // this.ctx.fillStyle = this.color;
-        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
-
         let status = this.status;
 
         if (this.status === 1 && this.direction * this.vx < 0) {
@@ -111,6 +113,10 @@ export class Player extends GameObject {
             let k = parseInt(this.frame_current_cnt / obj.frame_rate % obj.frame_cnt);
             let image = obj.gif.frames[k].image;
             this.ctx.drawImage(image, this.x, this.y + obj.offset_y, image.width * obj.scale, image.height * obj.scale);
+        }
+
+        if (status === 4 && this.frame_current_cnt === obj.frame_rate * (obj.frame_cnt - 1)) {
+            this.status = 0; // 攻击动画播放完毕后切换回站立状态
         }
         this.frame_current_cnt ++;
     }
