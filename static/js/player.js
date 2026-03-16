@@ -28,6 +28,7 @@ export class Player extends GameObject {
         this.frame_current_cnt = 0; // 当前动画帧的计数器
 
         this.hp = 100;
+        this.$hp = this.root.$kof.find(`.kof-head-hp-${this.id} > div`); // 获取角色的血条元素
     }
 
     start() {
@@ -93,16 +94,15 @@ export class Player extends GameObject {
     }
 
     update_move() { 
-        if (this.status === 3) { // 如果角色处于跳跃状态
-            this.vy += this.gravity; // 受重力影响，垂直速度增加
-        } 
+        this.vy += this.gravity; // 受重力影响，垂直速度增加
+
         this.x  += this.vx * this.timedelta / 1000; // 根据水平速度和时间间隔更新水平位置
         this.y  += this.vy * this.timedelta / 1000; // 根据垂直速度和时间间隔更新垂直位置
 
         if (this.y > 450) { // 如果角色落地
             this.y = 450;
             this.vy = 0;
-            this.status = 0;
+            if (this.status === 3) this.status = 0;
         }
 
         if (this.x < 0) {
@@ -118,7 +118,10 @@ export class Player extends GameObject {
         this.status = 5;
         this.frame_current_cnt = 0;
 
-        this.hp = Math.max(this.hp - 50, 0);
+        this.hp = Math.max(this.hp - 10, 0);
+        this.$hp.animate({
+            width: this.$hp.parent().width() * this.hp / 100,
+        });
 
         if (this.hp <= 0) {
             this.status = 6;
