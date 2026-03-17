@@ -2,4 +2,4 @@
 
 Game:
 
-![demo](F:\MyProject\King Of Fighter\static\images\demo.png)
+![demo](.\static\images\demo.png)
