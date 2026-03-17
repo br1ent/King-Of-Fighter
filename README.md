@@ -2,4 +2,4 @@
 
 Game:
 
-![demo](.\static\images\demo.png)
+![demo](static/images/demo.png)
