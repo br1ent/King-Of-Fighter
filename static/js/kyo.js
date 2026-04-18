@@ -19,7 +19,7 @@ export class Kyo extends Player {
                 frame_cnt: 0, // 动画帧的数量
                 frame_rate: 10, // 每秒播放的帧数
                 offset_y: offsets[i],
-                lodaded: false,
+                loaded: false,
                 scale: 2, // 动画的缩放比例
             });
 

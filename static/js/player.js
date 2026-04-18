@@ -136,7 +136,7 @@ export class Player extends GameObject {
     }
 
     is_collision(r1, r2) {
-        if (Math.max(r1.x1, r2.x2) > Math.min(r1.x2, r2.x2)) {
+        if (Math.max(r1.x1, r2.x1) > Math.min(r1.x2, r2.x2)) {
             return false;
         }
 
@@ -216,7 +216,7 @@ export class Player extends GameObject {
             }
         }
 
-        if (obj && status === 4 || status === 5 || status === 6) {
+        if (obj && (status === 4 || status === 5 || status === 6)) {
             if (this.frame_current_cnt === obj.frame_rate * (obj.frame_cnt - 1)) {
                 if (status === 6) {
                     this.frame_current_cnt -- ;
